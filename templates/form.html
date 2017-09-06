@@ -1,0 +1,96 @@
+{% extends "layout.html" %}
+{% block body %}
+ <!--  <h2>Form</h2>
+  <p>The Data you enter here will be saved in a database on our server</p> -->
+  {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
+  
+
+  <section class="content row">
+    <div class="left col-md-3">
+        <ul>
+          <li ><a href="/graph">基本分析</a></li>
+          <li><a href="/graph">时序划分</a></li>
+          <li><a href="/rfm">模式筛选</a></li>
+          <li class="active"><a href="/form">参数设定</a></li>
+          <li><a href="/map">地理分析</a></li>
+          <li><a href="／map_api?busline=B26">帮助</a></li>
+          <!-- <li><a href="productDM">高级用户分析</a></li> -->
+        </ul>
+      </div> 
+
+    <div class="right col-md-9">
+        <div class="firstLine">
+          <span class="maniTitle">地理参数选择</span>
+          <!-- <span class="question">?</span>
+            <div class="newclass">
+              地理事件模式选择主要是分为群体事件模式划分（目的是通过聚合具有相同性质意义的地理位置，为用户提供热度分析，选址分析以及迁移分析等的基础）以及单例事件序列划分的过程。
+            </div> -->
+          <span class="next"><a href="/map">下一步>></a></span>
+        </div>
+        
+        <div class="biaoyin row">
+          <div class="subTitle">地理分析参数选择</div>
+              <form action="/post" method="post" >
+              <input class="biaoyin2 col-md-3" type="text" placeholder="重点位置 上/下车1/0" name="first">
+              <input class="biaoyin2 col-md-3" type="text" placeholder="分析范围确定,eg200" name="name">
+              <input class="biaoyin2 col-md-3" type="text" placeholder="最少作用点数,eg0.9" name="comment">
+              <p><button class="biaoyin3 col-md-2" type="submit">参数确定</button></p>
+              </form> 
+              <!-- <button class="biaoyin4 col-md-2" style="color:lightgray">自动标引</button> -->
+              <!-- <button class="biaoyin5 col-md-1" >fill</button> -->
+        </div>
+        <hr>
+         <div >
+     <table >
+          <thead class="thead">
+            <th width="20%">时段重点位置挑选</th>
+            <th width="20%">区域分析范围确定</th>
+            <th width="20%">最少作用点数选定</th>
+          </thead>
+          
+          <tbody>
+            <tr>
+              <td>
+               针对出租车轨迹数据，每个时序范围内，都会记录大量的地理位置，然而区域分析中，最重要的是上下车两个地点，用户根据自己需求选定
+               </td>
+              <td>由于位置信息设备的检测精度误差等原因，地理分析设定数百米的阈值范围，将其中的数据视作一个整体，同等对待，用户需要根据录入数据误差以及自身精确度要求选取阈值，计算单位为m。</td>
+              <td>设立上述的小范围整体的过程中，需要设定范围最少需要包含多少定位点，才开始产生作用，计算单位为个。</td>
+             </tr>
+           
+         </tbody>
+         </table>
+        
+   </div>
+    <p>参数历史记录：<a href = "JavaScript:void(0)" onclick = "document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'">请点这里</a></p> 
+          <div id="light" class="white_content">历史记录选择. 
+          <table class="table">
+          <thead class="thead">
+            <th>参数设置时间</th>
+            <th>上车地点1／下车地点0</th>
+            <th>区域分析范围</th>
+            <th>最少作用点数</th>
+          </thead>
+          <tbody>
+            {% for greeting in greeting_list %}
+            <tr>
+              <td>{{ greeting.create_at|datetime_fmt }}</td>
+              <td>{{ greeting.first|nl2br}}</td>
+              <td>{{ greeting.name}}</td>
+              <td>{{ greeting.comment}}</td>
+             </tr>
+            {% endfor %}
+           
+         </tbody>
+         </table>
+         <a href = "javascript:void(0)" onclick = "document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">点这里关闭历史记录</a>
+         </div> 
+      </div> 
+
+      </section>
+     
+
+  
+{% endblock %}
+
+{% block javascript %}
+{% endblock %}

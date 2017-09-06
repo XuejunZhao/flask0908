@@ -1,0 +1,85 @@
+[I 12:49:16.501 NotebookApp] [nb_conda_kernels] enabled, 2 kernels found
+[I 12:49:17.354 NotebookApp] [nb_anacondacloud] enabled
+[I 12:49:17.359 NotebookApp] [nb_conda] enabled
+[I 12:49:17.365 NotebookApp] Loading the assignment_list nbgrader serverextension
+[I 12:49:17.438 NotebookApp] ✓ nbpresent HTML export ENABLED
+[W 12:49:17.438 NotebookApp] ✗ nbpresent PDF export DISABLED: No module named nbbrowserpdf.exporters.pdf
+[I 12:49:17.443 NotebookApp] Serving notebooks from local directory: /Users/xuejun
+[I 12:49:17.443 NotebookApp] 0 active kernels 
+[I 12:49:17.444 NotebookApp] The Jupyter Notebook is running at: http://10.108.213.2:8888/?token=c3c957a16847c41cd7c7deb6741b28e7618e50717da8ba9b
+[I 12:49:17.444 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[C 12:49:17.444 NotebookApp] 
+    
+    Copy/paste this URL into your browser when you connect for the first time,
+    to login with a token:
+        http://10.108.213.2:8888/?token=c3c957a16847c41cd7c7deb6741b28e7618e50717da8ba9b
+[I 12:49:34.151 NotebookApp] 302 GET /?token=c3c957a16847c41cd7c7deb6741b28e7618e50717da8ba9b (10.108.213.2) 0.62ms
+[I 12:50:54.302 NotebookApp] 302 GET /tree/Downloads/hotposition_leaflet-master-8c995d207f264a599b2a17b1bddf0fb95005b52a/folium-master/examples/RectangleMarker_and_PolygonMarker.ipynb?token=c3c957a16847c41cd7c7deb6741b28e7618e50717da8ba9b (10.108.213.2) 4.66ms
+[I 12:50:57.083 NotebookApp] Kernel started: 526e172d-33b7-40ec-bc89-f79a1ee6595c
+[I 12:50:58.543 NotebookApp] Adapting to protocol v5.1 for kernel 526e172d-33b7-40ec-bc89-f79a1ee6595c
+[W 12:51:09.282 NotebookApp] 404 GET /static/components/proptypes/index.js.map (10.108.213.2) 23.68ms referer=None
+[W 12:51:09.285 NotebookApp] 404 GET /static/components/preact-compat/preact-compat.min.js.map (10.108.213.2) 2.26ms referer=None
+[W 12:51:09.409 NotebookApp] 404 GET /static/components/preact/preact.min.js.map (10.108.213.2) 2.28ms referer=None
+[I 12:52:06.837 NotebookApp] 302 GET /tree/Downloads/hotposition_leaflet-master-8c995d207f264a599b2a17b1bddf0fb95005b52a/folium-master/examples/RectangleMarker_and_PolygonMarker.ipynb?token=c3c957a16847c41cd7c7deb6741b28e7618e50717da8ba9b (10.108.213.2) 1.65ms
+[W 12:52:07.059 NotebookApp] 404 GET /static/components/preact/preact.min.js.map (10.108.213.2) 2.45ms referer=None
+[W 12:52:07.062 NotebookApp] 404 GET /static/components/preact-compat/preact-compat.min.js.map (10.108.213.2) 2.25ms referer=None
+[W 12:52:07.065 NotebookApp] 404 GET /static/components/proptypes/index.js.map (10.108.213.2) 3.05ms referer=None
+[I 12:52:11.183 NotebookApp] Adapting to protocol v5.1 for kernel 526e172d-33b7-40ec-bc89-f79a1ee6595c
+[I 12:54:10.579 NotebookApp] Saving file at /Downloads/hotposition_leaflet-master-8c995d207f264a599b2a17b1bddf0fb95005b52a/folium-master/examples/RectangleMarker_and_PolygonMarker.ipynb
+[I 12:58:50.935 NotebookApp] 302 GET /tree/Downloads/hotposition_leaflet-master-8c995d207f264a599b2a17b1bddf0fb95005b52a/folium-master/examples/RectangleMarker_and_PolygonMarker.ipynb?token=c3c957a16847c41cd7c7deb6741b28e7618e50717da8ba9b (10.108.213.2) 1.13ms
+[W 12:58:51.047 NotebookApp] 404 GET /static/components/preact/preact.min.js.map (10.108.213.2) 2.25ms referer=None
+[W 12:58:51.050 NotebookApp] 404 GET /static/components/preact-compat/preact-compat.min.js.map (10.108.213.2) 2.13ms referer=None
+[W 12:58:51.053 NotebookApp] 404 GET /static/components/proptypes/index.js.map (10.108.213.2) 2.49ms referer=None
+[I 12:58:54.490 NotebookApp] Adapting to protocol v5.1 for kernel 526e172d-33b7-40ec-bc89-f79a1ee6595c
+[I 12:59:20.503 NotebookApp] 302 GET /tree/Downloads/hotposition_leaflet-master-8c995d207f264a599b2a17b1bddf0fb95005b52a/folium-master/examples/RectangleMarker_and_PolygonMarker.ipynb?token=c3c957a16847c41cd7c7deb6741b28e7618e50717da8ba9b (10.108.213.2) 5.36ms
+[W 12:59:20.680 NotebookApp] 404 GET /static/components/preact/preact.min.js.map (10.108.213.2) 3.06ms referer=None
+[W 12:59:20.686 NotebookApp] 404 GET /static/components/preact-compat/preact-compat.min.js.map (10.108.213.2) 3.12ms referer=None
+[W 12:59:20.691 NotebookApp] 404 GET /static/components/proptypes/index.js.map (10.108.213.2) 3.94ms referer=None
+[I 12:59:23.326 NotebookApp] Adapting to protocol v5.1 for kernel 526e172d-33b7-40ec-bc89-f79a1ee6595c
+[I 13:00:32.414 NotebookApp] 302 GET /tree/Downloads/hotposition_leaflet-master-8c995d207f264a599b2a17b1bddf0fb95005b52a/folium-master/examples/RectangleMarker_and_PolygonMarker.ipynb?token=c3c957a16847c41cd7c7deb6741b28e7618e50717da8ba9b (10.108.213.2) 1.65ms
+[W 13:00:32.615 NotebookApp] 404 GET /static/components/preact/preact.min.js.map (10.108.213.2) 2.48ms referer=None
+[W 13:00:32.621 NotebookApp] 404 GET /static/components/proptypes/index.js.map (10.108.213.2) 2.25ms referer=None
+[W 13:00:32.624 NotebookApp] 404 GET /static/components/preact-compat/preact-compat.min.js.map (10.108.213.2) 2.17ms referer=None
+[I 13:00:36.110 NotebookApp] Adapting to protocol v5.1 for kernel 526e172d-33b7-40ec-bc89-f79a1ee6595c
+[I 13:02:14.464 NotebookApp] 302 GET /tree/Downloads/hotposition_leaflet-master-8c995d207f264a599b2a17b1bddf0fb95005b52a/folium-master/examples/RectangleMarker_and_PolygonMarker.ipynb?token=c3c957a16847c41cd7c7deb6741b28e7618e50717da8ba9b (10.108.213.2) 1.62ms
+[W 13:02:14.637 NotebookApp] 404 GET /static/components/preact/preact.min.js.map (10.108.213.2) 3.05ms referer=None
+[W 13:02:14.642 NotebookApp] 404 GET /static/components/proptypes/index.js.map (10.108.213.2) 3.50ms referer=None
+[W 13:02:14.647 NotebookApp] 404 GET /static/components/preact-compat/preact-compat.min.js.map (10.108.213.2) 2.21ms referer=None
+[I 13:02:17.946 NotebookApp] Adapting to protocol v5.1 for kernel 526e172d-33b7-40ec-bc89-f79a1ee6595c
+[I 13:04:11.020 NotebookApp] 302 GET /tree/Downloads/hotposition_leaflet-master-8c995d207f264a599b2a17b1bddf0fb95005b52a/folium-master/examples/RectangleMarker_and_PolygonMarker.ipynb?token=c3c957a16847c41cd7c7deb6741b28e7618e50717da8ba9b (10.108.213.2) 2.46ms
+[W 13:04:11.162 NotebookApp] 404 GET /static/components/preact/preact.min.js.map (10.108.213.2) 2.41ms referer=None
+[W 13:04:11.165 NotebookApp] 404 GET /static/components/preact-compat/preact-compat.min.js.map (10.108.213.2) 2.19ms referer=None
+[W 13:04:11.168 NotebookApp] 404 GET /static/components/proptypes/index.js.map (10.108.213.2) 2.17ms referer=None
+[I 13:04:14.835 NotebookApp] Adapting to protocol v5.1 for kernel 526e172d-33b7-40ec-bc89-f79a1ee6595c
+[I 13:05:18.200 NotebookApp] 302 GET /tree/Downloads/hotposition_leaflet-master-8c995d207f264a599b2a17b1bddf0fb95005b52a/folium-master/examples/RectangleMarker_and_PolygonMarker.ipynb?token=c3c957a16847c41cd7c7deb6741b28e7618e50717da8ba9b (10.108.213.2) 1.75ms
+[W 13:05:18.454 NotebookApp] 404 GET /static/components/preact/preact.min.js.map (10.108.213.2) 2.44ms referer=None
+[W 13:05:18.457 NotebookApp] 404 GET /static/components/preact-compat/preact-compat.min.js.map (10.108.213.2) 2.21ms referer=None
+[W 13:05:18.459 NotebookApp] 404 GET /static/components/proptypes/index.js.map (10.108.213.2) 2.19ms referer=None
+[I 13:05:22.164 NotebookApp] Adapting to protocol v5.1 for kernel 526e172d-33b7-40ec-bc89-f79a1ee6595c
+[I 13:08:00.222 NotebookApp] 302 GET /tree/Downloads/hotposition_leaflet-master-8c995d207f264a599b2a17b1bddf0fb95005b52a/folium-master/examples/RectangleMarker_and_PolygonMarker.ipynb?token=c3c957a16847c41cd7c7deb6741b28e7618e50717da8ba9b (10.108.213.2) 1.20ms
+[W 13:08:00.343 NotebookApp] 404 GET /static/components/proptypes/index.js.map (10.108.213.2) 2.41ms referer=None
+[W 13:08:00.349 NotebookApp] 404 GET /static/components/preact/preact.min.js.map (10.108.213.2) 4.93ms referer=None
+[W 13:08:00.354 NotebookApp] 404 GET /static/components/preact-compat/preact-compat.min.js.map (10.108.213.2) 3.01ms referer=None
+[I 13:08:03.807 NotebookApp] Adapting to protocol v5.1 for kernel 526e172d-33b7-40ec-bc89-f79a1ee6595c
+[I 13:08:15.804 NotebookApp] 302 GET /tree/Downloads/hotposition_leaflet-master-8c995d207f264a599b2a17b1bddf0fb95005b52a/folium-master/examples/RectangleMarker_and_PolygonMarker.ipynb?token=c3c957a16847c41cd7c7deb6741b28e7618e50717da8ba9b (10.108.213.2) 1.75ms
+[W 13:08:16.016 NotebookApp] 404 GET /static/components/preact/preact.min.js.map (10.108.213.2) 2.46ms referer=None
+[W 13:08:16.020 NotebookApp] 404 GET /static/components/proptypes/index.js.map (10.108.213.2) 2.48ms referer=None
+[W 13:08:16.023 NotebookApp] 404 GET /static/components/preact-compat/preact-compat.min.js.map (10.108.213.2) 2.68ms referer=None
+[I 13:08:18.328 NotebookApp] Adapting to protocol v5.1 for kernel 526e172d-33b7-40ec-bc89-f79a1ee6595c
+[I 13:08:39.391 NotebookApp] 302 GET /tree/Downloads/hotposition_leaflet-master-8c995d207f264a599b2a17b1bddf0fb95005b52a/folium-master/examples/RectangleMarker_and_PolygonMarker.ipynb?token=c3c957a16847c41cd7c7deb6741b28e7618e50717da8ba9b (10.108.213.2) 4.38ms
+[W 13:08:39.644 NotebookApp] 404 GET /static/components/preact/preact.min.js.map (10.108.213.2) 3.53ms referer=None
+[W 13:08:39.647 NotebookApp] 404 GET /static/components/proptypes/index.js.map (10.108.213.2) 2.45ms referer=None
+[W 13:08:39.651 NotebookApp] 404 GET /static/components/preact-compat/preact-compat.min.js.map (10.108.213.2) 2.10ms referer=None
+[I 13:08:42.201 NotebookApp] Adapting to protocol v5.1 for kernel 526e172d-33b7-40ec-bc89-f79a1ee6595c
+[I 13:12:59.041 NotebookApp] 302 GET /tree/Downloads/hotposition_leaflet-master-8c995d207f264a599b2a17b1bddf0fb95005b52a/folium-master/examples/RectangleMarker_and_PolygonMarker.ipynb?token=c3c957a16847c41cd7c7deb6741b28e7618e50717da8ba9b (10.108.213.2) 1.38ms
+[W 13:12:59.150 NotebookApp] 404 GET /static/components/preact/preact.min.js.map (10.108.213.2) 2.38ms referer=None
+[W 13:12:59.152 NotebookApp] 404 GET /static/components/preact-compat/preact-compat.min.js.map (10.108.213.2) 1.78ms referer=None
+[W 13:12:59.155 NotebookApp] 404 GET /static/components/proptypes/index.js.map (10.108.213.2) 2.04ms referer=None
+[I 13:13:02.714 NotebookApp] Adapting to protocol v5.1 for kernel 526e172d-33b7-40ec-bc89-f79a1ee6595c
+[W 14:03:32.715 NotebookApp] WebSocket ping timeout after 2098571 ms.
+[W 21:31:08.236 NotebookApp] Notebook Documents/code/notebook/0616 test.ipynb is not trusted
+[I 23:12:48.621 NotebookApp] 302 GET / (10.108.213.2) 3.60ms
+[I 23:13:49.683 NotebookApp] 302 GET / (10.108.213.2) 0.37ms
+[C 23:18:03.224 NotebookApp] received signal 15, stopping
+[I 23:18:03.240 NotebookApp] Shutting down kernels
+[I 23:18:03.756 NotebookApp] Kernel shutdown: 526e172d-33b7-40ec-bc89-f79a1ee6595c

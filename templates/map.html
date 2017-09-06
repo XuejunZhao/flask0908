@@ -1,0 +1,334 @@
+{% extends "layout.html" %}
+{% block body %}
+  
+<!-- <link href="../static/css/c3.css" rel="stylesheet"> -->
+<!-- <link href="../static/css/app.css" rel="stylesheet"> -->
+<section class="content row">
+  <div class="left col-md-3">
+        <ul>
+          <li><a href="/graph">基本分析</a></li>
+          <li><a href="/graph">时序划分</a></li>
+          <li><a href="/rfm">模式筛选</a></li>
+          <li><a href="/form">参数设定</a></li>
+          <li class="active"><a href="/map">地理分析</a></li>
+          <li><a href="／map_api?busline=B26">帮助</a></li>
+          <!-- <li><a href="productDM">高级用户分析</a></li> -->
+        </ul>
+      </div> 
+      
+  <div class="right col-md-9">
+    <div class="biaoyin row">
+          <div class="subTitle">价值区域选定</div>
+          <div style="text-align: center; font-size: 1.05em;">最新设定的模型参数</div>
+                <div style="height:72px; overflow : hidden">
+              <table class="table">
+          <thead class="thead">
+            <th>上车地点1／下车地点0</th>
+            <th>地理分析范围</th>
+            <th>最少作用点数</th>
+          </thead>
+          <tbody>
+            <!-- {% for greeting in last_list %} -->
+            <tr>
+              <td>{{ last_list.first }}</td>
+              <td>{{ last_list.name }}</td>
+              <td>{{ last_list.comment }}</td>
+             </tr>
+            <!-- {% endfor %} -->
+           
+         </tbody>
+         </table>
+       </div>
+              <form action="/forward" method="post" >
+              <input class="biaoyin2 col-md-3" type="text" placeholder="群体事件阈值,eg200" name="name">
+              <input class="biaoyin2 col-md-3" type="text" placeholder="单例事件阈值,eg0.9" name="comment">
+              <p><button class="biaoyin3 col-md-2" type="submit">参数确定</button></p>
+              </form> 
+        </div>
+    <h2>地理分析结果</h2>
+    <div id="mapContainer" style="height:400px">
+    </div>
+    <h2>价值区域选定结果</h2>
+    <div id="gaode" style="height:400px"><p>"contatineer"</p></div> 
+     <div class="inst">
+          <div class="helpHead">
+            1.最终polygon说明：
+          </div>
+          <div class="helpTest">
+            <!-- 仅支持txt格式的文件上传，本地文件上传到分布式文件系统（HDFS）中。点击选择本地待上传的文件，确认上传后，请耐心等待，待上传成功之后，会有样例数据展示在页面前端，可以看到上传数据的列样式。 -->
+            根据用户选定的上车地点，最少10个点，200m作用的区域范围，起到的预测效果是在图中的区域范围内，以目前的小范围数据为来源，得到的最佳预测区域，可以认为司机在这个区域更加容易载客，也可以认为用户在该区域的打车竞争很大。
+          </div> 
+          <div class="helpHead">
+            2.全天散点分布：
+          </div>
+          <div class="helpTest">
+            <!-- 仅支持txt格式的文件上传，本地文件上传到分布式文件系统（HDFS）中。点击选择本地待上传的文件，确认上传后，请耐心等待，待上传成功之后，会有样例数据展示在页面前端，可以看到上传数据的列样式。 -->
+            该区域是经过用户自身的分析，以及参数层层选取，最终反馈的结果；在此基础上，用户需要对该区域进行进一步的深刻分析。
+          </div> 
+
+        </div>
+       
+       <h2>全天散点分布</h2>
+       <div class="toolsPic"><img src="{{ url_for('static', filename='images/dot.png') }}" width="80%"></div>
+       <div class="heatmap-holder"></div>
+  </div> 
+</section>
+
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=c2a34a2243cc79537dfe24ecf514e194"></script>
+    <script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>
+    <script type="text/javascript" src="http://cache.amap.com/lbs/static/es5.min.js"></script>
+    <script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>        
+        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+        
+        <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script type="text/javascript" src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+        <script src="//webapi.amap.com/ui/1.0/main.js?v=1.0.10"></script>
+        <script src="../static/js/d3.js"></script>
+    <script src="../static/js/c3.js"></script>
+    <script src="../static/js/app.js"></script>
+    <!--script type="text/javascript">
+        var map = new AMap.Map('gaode',{
+            resizeEnable: true,
+            zoom: 10,
+            center: [116.480983, 40.0958]
+        });
+    </script-->
+    <script type="text/javascript">
+
+        var a_mark;    //图标点
+        var marker;  
+        var lineArr;
+        map = new AMap.Map("gaode", {
+          resizeEnable: true,
+          center: [104.0051950000000005,30.6973860000000016],
+          zoom: 14
+        });
+        map.plugin(["AMap.ToolBar"],function(){
+            //加载工具条
+            var tool = new AMap.ToolBar();
+            map.addControl(tool);   
+            });
+
+        var lineArr=[
+            [104.0051950000000005,30.6973860000000016],
+            [104.0028930000000003,30.6975869999999986],
+            [104.0035259999999937,30.6984990000000018],
+            [104.0042980000000057,30.6991769999999988],
+            [104.0044879999999949,30.6992970000000014],
+            [104.0047449999999998,30.6992159999999998],
+            [104.0051950000000005,30.6973860000000016]
+          ];
+        var arr=new Array();//经纬度坐标数组 
+            arr.push(new AMap.LngLat("104.0051950000000005","30.6973860000000016")); 
+            arr.push(new AMap.LngLat("104.0028930000000003","30.6975869999999986")); 
+            arr.push(new AMap.LngLat("104.0035259999999937","30.6984990000000018")); 
+            arr.push(new AMap.LngLat("104.0042980000000057","30.6991769999999988")); 
+            arr.push(new AMap.LngLat("104.0044879999999949","30.6992970000000014")); 
+            arr.push(new AMap.LngLat("104.0047449999999998","30.6992159999999998")); 
+            arr.push(new AMap.LngLat("104.0051950000000005","30.6973860000000016")); 
+    
+        // 实例化一个Polyline类
+        var polyline=new AMap.Polyline({
+            path:arr,
+            strokeColor:"#ff2200",
+            strokeWeight:5
+        });
+        // 添加到地图中
+        polyline.setMap(map);
+        map.plugin(["AMap.PolyEditor"],function(){
+        polylineEditor = new AMap.PolyEditor(map,polyline); 
+        polylineEditor.open(); 
+    }); 
+
+        
+        //地图图块加载完毕后执行函数  
+       
+    </script>
+  <script>
+  console.log("ok")
+  console.log(last_list)
+  </script> 
+
+<script>
+
+      //    var pointList=[
+      //     {
+          
+      //   lng:116.368904,
+      //     lat:39.913423
+          
+      //     },
+
+      //   {
+         
+      //     lng:116.382122,
+      //     lat:39.901176
+          
+         
+          
+      //     },
+        
+      //   {
+         
+      //     lng:116.387271,
+      //     lat:39.912501
+          
+      //     },
+      //       {
+         
+      //     lng:116.368904,
+      //     lat:39.913423
+          
+      //     }
+        
+      
+      // ];
+      map = new AMap.Map("mapContainer", {
+          resizeEnable: true,
+          center: [116.397428, 39.90923],
+          zoom: 14
+        });
+      var lineArr = new Array();;
+      var pointList = new Array();
+      function completeEventHandler(x,y){ 
+                
+                // marker3 = new AMap.Marker({  
+                //     map:map,  
+                //     //draggable:true, //是否可拖动  
+                //     position:new AMap.LngLat(x,y),//基点位置  
+                //     // icon:"http://code.mapabc.com/images/car_03.png", //marker图标，直接传递地址url  
+                //     // icon:"http://img5.imgtn.bdimg.com/it/u=4267222417,1017407570&fm=200&gp=0.jpg"
+                //     offset:new AMap.Pixel(-26,-13), //相对于基点的位置  
+                //     autoRotation:true  
+                // });        
+                var lngX ;  
+                var latY ;         
+
+                 for(var i = 1;i<pointList.length;i++){
+                    lngX = pointList[i].lng;
+                    latY = pointList[i].lat;
+                    console.log(latY)
+                    lineArr.push(new AMap.LngLat(lngX,latY));
+                 }
+             
+
+        
+                var polyline = new AMap.Polyline({  
+                    // map:map,  
+                    path:lineArr,  
+                    strokeColor:"#ff2200",
+                    strokeWeight:5,
+                    // strokeColor:"#00A",//线颜色  
+                    strokeOpacity:1,//线透明度  
+                    // strokeWeight:3,//线宽  
+                    strokeStyle:"solid",//线样式  
+                });  
+                // 添加到地图中
+                polyline.setMap(map);
+                map.plugin(["AMap.PolyEditor"],function(){
+                polylineEditor = new AMap.PolyEditor(map,polyline); 
+                polylineEditor.open(); 
+                 }); 
+            }  
+            function startRun(){  //开始绘制轨迹
+                console.log(pointList)
+                x=pointList[0].lng;
+                y=pointList[0].lat;
+                
+                completeEventHandler(x,y);
+                // console.log(marker)
+                // marker3.moveAlong(lineArr,80);     //开始轨迹回放
+            }
+            function init(){
+                     
+                       $.ajax({
+                             url: "/tasks",//_gPath+
+                             type: "GET",//请求方式为get
+                             dataType: "json", //返回数据格式为json
+                             async: false,
+
+                            success: function(resp){
+                                // pointList = eval(resp)[1]
+                                // console.log(pointList[0].lng)
+                                // console.log(pointList)
+                //                 x=pointList[0].lng;
+                //                 y=pointList[0].lat;
+                                
+                //                lineArr = new Array();   
+
+                //  for(var i = 1;i<pointList.length;i++){
+                //     lngX = pointList[i].lng;
+                //     latY = pointList[i].lat;
+                //     console.log(latY)
+                //     lineArr.push(new AMap.LngLat(lngX,latY));
+                //  }
+                //  var polyline = new AMap.Polyline({  
+                //     // map:map,  
+                //     path:lineArr,  
+                //     strokeColor:"#ff2200",
+                //     strokeWeight:5,
+                //     // strokeColor:"#00A",//线颜色  
+                //     strokeOpacity:1,//线透明度  
+                //     // strokeWeight:3,//线宽  
+                //     strokeStyle:"solid",//线样式  
+                // });  
+                // // 添加到地图中
+                // polyline.setMap(map);
+                // map.plugin(["AMap.PolyEditor"],function(){
+                // polylineEditor = new AMap.PolyEditor(map,polyline); 
+                // polylineEditor.open(); 
+                 // }); 
+                                
+                                $.each(resp, function(index,item){
+                                 
+                                    pointList = item; 
+                                    //startRun();
+                                    // console.log(pointList)
+                                    // alert(typeof pointList);
+                                    // alert(pointList[0].lng);
+                                x=pointList[0].lng;
+                                y=pointList[0].lat;
+                                
+                               lineArr = new Array();   
+
+                 for(var i = 1;i<pointList.length;i++){
+                    lngX = pointList[i].lng;
+                    latY = pointList[i].lat;
+                    console.log(latY)
+                    lineArr.push(new AMap.LngLat(lngX,latY));
+                 }
+                 var polyline = new AMap.Polyline({  
+                    // map:map,  
+                    path:lineArr,  
+                    strokeColor:"#ff2200",
+                    strokeWeight:5,
+                    // strokeColor:"#00A",//线颜色  
+                    strokeOpacity:1,//线透明度  
+                    // strokeWeight:3,//线宽  
+                    strokeStyle:"solid",//线样式  
+                });  
+                // 添加到地图中
+                polyline.setMap(map);
+                map.plugin(["AMap.PolyEditor"],function(){
+                polylineEditor = new AMap.PolyEditor(map,polyline); 
+                polylineEditor.open(); 
+                 }); 
+
+
+                              });
+                                
+                            }
+                    }); 
+                      console.log(pointList)              
+                      startRun(); 
+                  }      
+                  $(document).ready(function(){
+                     init();
+                     // startRun(); 
+                  }); 
+
+        </script>
+{% endblock %}

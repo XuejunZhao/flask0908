@@ -1,0 +1,134 @@
+{% extends "layout.html" %}
+{% block body %}
+
+      <section class="content row">
+      <div class="col-md-8 col-md-offset-2 help">
+        <div class="bigTitle">帮助指南</div>
+        <div class="inst">
+          <div class="helpHead">
+            总述：
+          </div>
+          <div class="helpTest">
+            <!-- 本系统的使用流程见“产品试用”，注意请按照左侧栏的顺序使用系统，即后一步骤会依赖于前一步骤，同一步骤下的不同分析主题是并列关系，没有先后顺序关系。 -->
+          </div>
+          <div class="helpImg">
+            
+          </div>
+        </div>
+        <div class="inst">
+          <div class="helpHead">
+            基本分析：
+          </div>
+          <div class="helpTest">
+            <!-- 仅支持txt格式的文件上传，本地文件上传到分布式文件系统（HDFS）中。点击选择本地待上传的文件，确认上传后，请耐心等待，待上传成功之后，会有样例数据展示在页面前端，可以看到上传数据的列样式。 -->
+            用户选定了相关数据后，系统会展示出地理范围以及时间序列上的数据分布情况。
+          </div>
+          
+          <div class="helpTest">
+            该模块是本系统对市面上地理分析以及数据分析整合，得到的关于这两个维度切入点，后面的流程试验均为本系统首创。
+          </div>
+          <div class="helpImg">
+            <img src="../static/images/algorithm/algorithm.png">
+          </div>
+        </div>
+        <div class="inst">
+          <div class="helpHead">
+            1.时序划分步骤：
+          </div>
+          <div class="helpTest">
+            数据波动性太强，直接进行数据实验，会影响最终结果，所以最好事先对数据时序进行划分。点击时序分析按钮，系统会完成整个实验过程。
+          </div>
+          <div class="helpImg">
+            <img src="../assets/images/list.png">
+          </div>
+          <div class="helpTest">
+            <!-- 输入标记覆盖率之后，系统会返回覆盖相应比例url的关键词列表，需要用户在每个关键词后面的文本输入框中输入标引文字。由于是演示系统，为了缩短演示时间，请输入85%的覆盖率，点击“fill”按钮，运行脚本即可完成手动标引。 -->
+          </div>
+          <div class="helpImg">
+            <img src="../assets/images/biaoyin.png">
+          </div>
+          <div class="helpTest">
+            本阶段使用的机器学习算法是在贝叶斯框架中，通过计算变点的后验概率，从而达到时序划分的效果。
+          </div>
+        </div>
+        <div class="inst">
+          <div class="helpHead">
+            2.模式筛选步骤：
+          </div>
+          <div class="helpTest">
+            首先查看各时序范围内，确定大体数值走向，并查看增参模型后，划分的时序范围内的多种模式，可以选择对何种模式下的数据进行后续的地理数据分析。
+            <!-- 时间戳属性列，支持两个维度的会话识别：按页面跳转间隔时间和按关键词序列。可单选、可多选复合使用。用户选择好会话识别方法，并配置好相关参数（点击"时间配置"或"关键词配置"），点击开始按钮，即开始会话识别流程。会话识别完成后，会返回切分结果以及用时。 -->
+          </div>
+          <div class="helpImg">
+            <img src="../assets/images/session.png">
+          </div>
+          <div class="helpTest">
+            基于时序划分，采用本系统首创的RFM模型增参（作者论文发表），并利用聚类算法确定多种模式，便于有针对性的对地理区域进行探究。
+
+          </div>
+          <div class="helpImg">
+            <img src="../assets/images/ss.png">
+          </div>
+        </div>
+        <div class="inst">
+          <div class="helpHead">
+            3.参数设定步骤：
+          </div>
+          <div class="helpTest">
+            本系统提供了三个类别的地理区域参数设定：时序首尾的位置重要性选取，区域作用范围，区域最少作用点。
+          </div>
+          <div class="helpImg">
+            <img src="../assets/images/tj.png">
+          </div>
+        </div>
+        <div class="inst">
+          <div class="helpHead">
+            4.价值区域选定：
+          </div>
+          <div class="helpTest">
+            使用聚类算法系统反馈最终的价值区域。
+          </div>
+          <div class="helpImg">
+            <img src="{{ url_for('static', filename='dataframe.png') }}" width="80%">
+          </div>
+        </div>
+      </div>
+      </section>
+  <!-- <h2>Table</h2>
+  <p>Display the Data from the MTA-API in a Map.</p>
+
+  <p>Choose your Bus:
+    <a href="{{ url_for('map_api') }}?busline=B26">B26</a> |
+    <a href="{{ url_for('map_api') }}?busline=B54">B54</a> |
+    <a href="{{ url_for('map_api') }}?busline=B61">B61</a> |
+    <a href="{{ url_for('map_api') }}?busline=B69">B69</a> 
+
+  {% if entries|count == 0 %}
+  <p><em>Unbelievable.  No entries here so far. </p>
+  {% else %}
+  <div id="map" style="height:400px"></div>
+  {% endif %} -->
+
+{% endblock %}
+
+{% block javascript %}
+<script>
+  // create a map in the "map" div, set the view to a given place and zoom
+  var map = L.map('map').setView([40.690407, -73.9430921], 13);
+
+  // add an OpenStreetMap tile layer
+  L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(map);
+
+  {% for location in entries %}
+    marker = L.marker([{{ location.Latitude }}, {{ location.Longitude }}]).addTo(map);
+  {% endfor %}
+</script>
+
+
+      <script src="../assets/scripts/jquery-1.7.1.min.js"></script> 
+      <script src="../assets/scripts/bootstrap.js"></script> 
+      <script src="../assets/scripts/productUpload.js"></script> 
+    
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+{% block body %}
+  <!-- <h1>Main</h1>
+  <p>This is the main page. find it in <kbd>index.html</kbd>.</p>
+  <p>Use all your HTML skills here.</p> -->
+  <section id="features">
+    <div class="bigPic" >
+        <!-- class="bigPic" -->
+        <!-- style = "height:576px; background-image:url('../static/1.jpg');" -->
+        <p class="firstTitle">基于位置的数据分析产品</p>
+        <p class="secondTitle">丰富的底层支持&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp位置数据分析更专业</p>
+        <br><br>
+        <div class="tryBtn"><a href = "/graph">开&nbsp始&nbsp使&nbsp用</a></div>
+    </div>
+    
+    <div class="tools nav-bar row row1">
+        <div class="logContainer row">
+            <div class="tool col-md-3 col-md-offset-0">
+                <div class="toolsPic"><img src="{{ url_for('static', filename='images/dianxin1.png') }}" width="60%"></div> 
+                <span class="toolsTitle">高速计算引擎</span>
+                <span class="toolsIntro">基于spark的模型平台</span>
+            </div>
+            <div class="tool col-md-3 col-md-offset-0">
+                <div class="toolsPic"><img src="{{ url_for('static', filename='images/mobile1.png') }}" width="60%"></div>
+                <span class="toolsTitle">业务洞察库</span>
+                <span class="toolsIntro">涵盖时间以及地理维度的复杂业务场景</span>
+            </div>
+            <div class="tool col-md-3 col-md-offset-0">
+                <div class="toolsPic"><img src="{{ url_for('static', filename='images/text1.png') }}" width="60%"></div>
+                <span class="toolsTitle">机器学习库</span>
+                <span class="toolsIntro">将机器学习算法与地理位置场景结合</span>
+            </div>
+            <div class="tool col-md-3 col-md-offset-0" >
+                <div class="toolsPic"><img src="{{ url_for('static', filename='images/visible1.png') }}" width="60%"></div>
+                <span class="toolsTitle">可视化结果</span>
+                <span class="toolsIntro">过程与结果可视化工具</span>
+            </div>
+        </div>
+    </div>
+    <div class="flow row row1">
+        <div class="wholeFlow col-md-8 col-md-offset-2">
+            <img src="{{ url_for('static', filename='images/wholeFlow.png') }}" width="100%"/>
+        </div>
+        <div class="step col-md-9 col-md-offset-2">
+            <img src="{{ url_for('static', filename='flow.png') }}"/>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block javascript %}
+    
+
+{% endblock %}

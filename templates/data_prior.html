@@ -1,0 +1,470 @@
+ <!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <!-- Bootstrap -->
+    <!-- <link href="css/bootstrap.min.css" rel="stylesheet"> -->
+    
+    <title>{{ config.APP_NAME }}</title>
+
+    <!-- We are using Twitter Bootstrap in the cloud, see http://getbootstrap.com/getting-started/ -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.3/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+    <link rel=stylesheet type=text/css href="../static/css/style.css">
+    <link href="../static/css/c3.css" rel="stylesheet">
+    <link href="../static/css/app.css" rel="stylesheet">
+  </head>
+  <body>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#"  style="margin-top:-14px;display: inline-block;" >
+          <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Bootstrappin" width="50px" style="margin-top:0px;display: inline-block;" >
+          <span style="font-size:14px;" > {{ config.APP_NAME }}</span>
+          </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="{{ url_for('index')   }}">Home</a></li>
+            <li><a href="{{ url_for('graph')   }}">Base</a></li>
+            <li><a href="{{ url_for('rfm')    }}">Type</a></li>
+            <li><a href="{{ url_for('form')    }}">Form</a></li>
+            <li><a href="{{ url_for('map')     }}">Map</a></li>
+            <!-- <li><a href="{{ url_for('table')   }}">Table</a></li> -->
+            <li><a href="{{ url_for('map_api') }}?busline=B26">Map and API</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            {% if not session.logged_in %}
+            <li><a href="{{ url_for('login') }}">log in</a></li>
+            {% else %}
+            <li><a href="{{ url_for('logout') }}">log out</a></li>
+            {% endif %}
+          </ul>
+
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+    
+<section class="content row">
+    <div class="left col-md-3">
+        <ul>
+
+          <li class="active"><a href="/graph">基本分析</a></li>
+          <li class="active"><a href="/graph">时序划分</a></li>
+          <li><a href="/rfm">模式筛选</a></li>
+          <li><a href="/form">参数设定</a></li>
+          <li><a href="/map">地理分析</a></li>
+          <li><a href="／map_api?busline=B26">帮助</a></li>
+          <!-- <li><a href="productDM">高级用户分析</a></li> -->
+        </ul>
+      </div> 
+
+    <div class="right col-md-9">
+        <div class="firstLine">
+
+          <span class="maniTitle">基本分析</span>
+          <!-- <span class="question">?</span> -->
+            <div class="newclass">
+              地理事件模式选择主要是分为群体事件模式划分（目的是通过聚合具有相同性质意义的地理位置，为用户提供热度分析，选址分析以及迁移分析等的基础）以及单例事件序列划分的过程。
+            </div>
+          <!-- <span class="next"><a href="/form?">下一步>></a></span> -->
+        </div>
+        
+        <div class="biaoyin row">
+          <div class="subTitle">地理范围分布状况</div>
+          <form action="/postfirst" method="post" >
+              <input class="biaoyin2 col-md-3" type="text" placeholder="示例数据（条数）" name="first">
+              <p><button class="biaoyin3 col-md-2" type="submit">示例确定</button></p>
+              </form> 
+          <select name="" id="choose" class="biaoyin1 col-md-3">
+                        <option value="c0">数据集选择</option>
+                        <option value="c1"><a href = "JavaScript:void(0)" onclick = "document.getElementById('cluster').style.display='block';document.getElementById('fade').style.display='block'">出租车轨迹数据</a></option>
+                        <option value="c2">上报数据</option>
+                        <option value="c3">option1</option>
+                    </select>
+
+
+            <div id="c" class = "dialog hidden3" >     
+     <p><button  id= "btn" class="biaoyin3 col-md-2" type="submit">数据确定</button></p> 
+                     <!-- <button class="btn7">load  from file</button> -->
+    <div class="dialog hidden" >
+    <table class="table">
+          <thead class="thead">
+            <th>id</th>
+            <th>taxi_id</th>
+            <th>lat</th>
+            <th>lng</th>
+            <th>user</th>
+            <th>date</th>
+          </thead>
+          <tbody>
+            {% for greeting in original_list %}
+            <tr>
+              <td>{{ greeting.id}}</td>
+              <td>{{ greeting.taxi_id}}</td>
+              <td>{{ greeting.lng}}</td>
+              <td>{{ greeting.lat}}</td>
+              <td>{{ greeting.user}}</td>
+              <td>{{ greeting.create_at}}</td>
+             </tr>
+            {% endfor %}
+           
+         </tbody>
+         </table>
+     <div id="cluster" style="height:400px"></div>
+
+     <div style="text-align: center; font-size: 1.05em;">数据的基本分布</div>
+      <div class="c3-line-chart-holder"></div>
+
+     <!-- <div style = "font-size: 1.05em;font-family: "å¾®è½¯é›…é»‘";font-weight: 600;"><p>波动性数据不太适合</p></div> -->
+     <p><button id= "btn2" class="biaoyin3 col-md-2" type="submit">时序划分</button></p>
+     <div class="dialog hidden2" >
+     <div style="text-align: center; font-size: 1.05em;">时间维度下统计分布
+     <img src="../static/images/algorithm/markbayes.png"></div>
+     
+     <div class="inst">
+          <div class="helpHead">
+            1.数据划分算法说明：
+          </div>
+          <div class="helpTest">
+            <!-- 仅支持txt格式的文件上传，本地文件上传到分布式文件系统（HDFS）中。点击选择本地待上传的文件，确认上传后，请耐心等待，待上传成功之后，会有样例数据展示在页面前端，可以看到上传数据的列样式。 -->
+            根据数据自身的特点，采用贝叶斯概率框架对数据变点进行检测，划分数据阶段，从而起到分段数据分析的效果。
+          </div> 
+          <div class="helpHead">
+            2.数据划分算法用途：
+          </div>
+          <div class="helpTest">
+            <!-- 仅支持txt格式的文件上传，本地文件上传到分布式文件系统（HDFS）中。点击选择本地待上传的文件，确认上传后，请耐心等待，待上传成功之后，会有样例数据展示在页面前端，可以看到上传数据的列样式。 -->
+            波动性太强的数据，直接进行数据分析影响较大，采用划分后的分段数据，利于数据特征筛选。
+          </div> 
+
+        </div>
+        <div class="right col-md-9">
+        <div class="firstLine">
+          <span class="next" id ="next_tem"><a>下一步>></a></span>
+        </div>
+
+     </div>
+     
+    </div>
+
+     <!-- <form action="/dataward" method="post" >
+ <select name="" id="choose" class="biaoyin1 col-md-3">
+                        <option value="c0">区域选择</option>
+                        <option value="c1">北京</option>
+                        <option value="c2">option1</option>
+                        
+                    </select>
+<p><button id= "btn2" class="biaoyin3 col-md-2" type="submit">区域确定</button></p>
+                  </form> -->
+                  
+<!-- <p><button id="sub" >1/button></p> -->
+        </div>
+    </div>
+        <!-- <div id="d" class = "dialog hidden3" >
+          
+        </div> -->
+         <div id="d" class = "dialog hidden3" >     
+     <p><button  id= "btn3" class="biaoyin3 col-md-2" type="submit">数据确定</button></p> 
+                     <!-- <button class="btn7">load  from file</button> -->
+    <div class="dialog hidden" >
+    <table class="table">
+          <thead class="thead">
+            <th>id</th>
+            <th>user_id</th>
+            <th>lat</th>
+            <th>lng</th>
+            <!-- <th>user</th> -->
+            <th>date</th>
+          </thead>
+          <tbody>
+            {% for greeting in sec_list %}
+            <tr>
+              <td>{{ greeting.id}}</td>
+              <td>{{ greeting.taxi_id}}</td>
+              <td>{{ greeting.lng}}</td>
+              <td>{{ greeting.lat}}</td>
+              <!-- <td>{{ greeting.user}}</td> -->
+              <td>{{ greeting.create_at}}</td>
+             </tr>
+            {% endfor %}
+           
+         </tbody>
+         </table>
+     <div id="cluster2" style="height:400px"></div>
+
+     <div style="text-align: center; font-size: 1.05em;">数据的基本分布</div>
+      <div class="c3-line-chart-holder2"></div>
+     <p><button id= "btn4" class="biaoyin3 col-md-2" type="submit">时序划分</button></p>
+     <div class="dialog hidden2" >
+     <div style="text-align: center; font-size: 1.05em;">时间维度下统计分布
+     <img src="../static/images/algorithm/markbayes2.png"></div>
+     
+     <div class="inst">
+          <div class="helpHead">
+            1.数据划分算法说明：
+          </div>
+          <div class="helpTest">
+            <!-- 仅支持txt格式的文件上传，本地文件上传到分布式文件系统（HDFS）中。点击选择本地待上传的文件，确认上传后，请耐心等待，待上传成功之后，会有样例数据展示在页面前端，可以看到上传数据的列样式。 -->
+            根据数据自身的特点，采用贝叶斯概率框架对数据变点进行检测，划分数据阶段，从而起到分段数据分析的效果。
+          </div> 
+          <div class="helpHead">
+            2.数据划分算法用途：
+          </div>
+          <div class="helpTest">
+            <!-- 仅支持txt格式的文件上传，本地文件上传到分布式文件系统（HDFS）中。点击选择本地待上传的文件，确认上传后，请耐心等待，待上传成功之后，会有样例数据展示在页面前端，可以看到上传数据的列样式。 -->
+            波动性太强的数据，直接进行数据分析影响较大，采用划分后的分段数据，利于数据特征筛选。
+          </div> 
+
+        </div>
+        <div class="right col-md-9">
+        <div class="firstLine">
+          <span class="next" id ="next_tem2"><a>下一步>></a></span>
+        </div>
+
+     </div>
+     
+    </div>
+
+ 
+        </div>
+    </div>
+     </div>
+     </div>
+      </section>
+    
+
+
+  
+    <!-- We are using jquery and Twitter Bootstrap javascript in the cloud, see http://getbootstrap.com/getting-started/ -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//cdn.datatables.net/1.10.3/js/jquery.dataTables.min.js"></script>
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+    <script src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js" charset="utf-8"></script> 
+    <script src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js" ></script>
+    <script src="http://cdn.bootcss.com/echarts/3.2.2/echarts.min.js"></script>
+    <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=c2a34a2243cc79537dfe24ecf514e194"></script>
+    <script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>
+    <script type="text/javascript" src="http://cache.amap.com/lbs/static/es5.min.js"></script>
+    <script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>        
+        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+        
+        <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script type="text/javascript" src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+        <script src="//webapi.amap.com/ui/1.0/main.js?v=1.0.10"></script>
+    <script src="../static/js/d3.js"></script>
+    <script src="../static/js/c3.js"></script>
+    <script src="../static/js/app.js"></script>
+
+<script>
+var value_choose;
+    $("select#choose").change(function(){
+   // console.log($(this).val());
+   var value_choose = $(this).val();
+   // console.log(value_choose);
+      if(value_choose == "c1"){
+        $("#c").removeClass('hidden3')
+        $('#d').addClass('hidden3')}
+
+});
+
+    
+    $("select#choose").change(function(){
+   // console.log($(this).val());
+   value_choose = $(this).val();
+   // console.log(value_choose);
+      if(value_choose == "c2"){
+        $("#d").removeClass('hidden3')
+        $('#c').addClass('hidden3')}
+
+
+});
+
+  //获取url参数
+  
+console.log(value_choose);
+  $(document).on('click', '#next_tem', function() {
+    var memberId = $(this).parent().parent().find('td:nth-child(2)').text(); 
+    var urlLocal = encodeURI('./rfm' + "?value_choose=" + value_choose);
+    window.location.href = urlLocal;
+  });
+
+  $(document).on('click', '#next_tem2', function() {
+    var memberId = $(this).parent().parent().find('td:nth-child(2)').text(); 
+    var urlLocal = encodeURI('./rfm' + "?value_choose=" + value_choose);
+    window.location.href = urlLocal;
+  });
+</script>
+
+
+
+<!-- <script>
+    $("select#choose").change(function(){
+      console.log($(this).val());
+      var value = $(this).val();
+      if(value == "c1"){
+        $("#c1").css(
+          display:visible;
+          )}
+});
+</script> -->
+
+<script>
+$(document).ready(function(){
+  $("#sub").click(function(){
+    $.get("../static/generator.py",function(data,status){
+      alert("数据: " + data + "\n状态: " + status);
+    });
+  });
+});
+</script>
+
+    <script type="text/javascript">
+    var map2 = new AMap.Map('cluster2', {
+        zoom: 4
+    });
+    function initPage2(DistrictCluster2, $) {
+        var distCluster2 = new DistrictCluster2({
+            map: map2, //所属的地图实例
+            getPosition: function(item) {
+                if (!item) {
+                    return null;
+                }
+                var parts = item.split(',');
+                return [parseFloat(parts[0]), parseFloat(parts[1])];
+            }
+        });
+        window.distCluster = distCluster2;
+        $('<div id="loadingTip">加载数据，请稍候...</div>').appendTo(document.body);
+        $.get("../static/doc/test2.txt", function(csv) {
+
+            $('#loadingTip').remove();
+            var data2 = csv.split('\n');
+            console.log(data)
+            distCluster2.setData(data2);
+        });
+    }
+
+    //加载相关组件
+    AMapUI.load(['ui/geo/DistrictCluster', 'lib/$'], function(DistrictCluster2, $) {
+      window.DistrictCluster2 = DistrictCluster2;
+        initPage2(DistrictCluster2, $);
+    });
+
+    </script>
+<script type="text/javascript">
+  d3.json('http://localhost:5000/data/count2', function(error, result) {
+    result = result['data'];
+    console.log(result);
+    dates = ['dates'];
+    counts = ['counts'];
+    for (date in result) {
+      dates.push(date);
+      counts.push(result[date]);
+    }
+    var chart2 = c3.generate({
+        bindto: '.c3-line-chart-holder2',
+        data: {
+          x: 'dates',
+          columns: [ dates, counts ]
+        },
+        axis: {
+            x: {
+                type: 'timeseries',
+                tick: {
+                    format: '%m-%d'
+                }
+            }
+        }
+    });
+  });
+</script>
+          <script type="text/javascript">
+    var map = new AMap.Map('cluster', {
+        zoom: 4
+    });
+    function initPage(DistrictCluster, $) {
+        var distCluster = new DistrictCluster({
+            map: map, //所属的地图实例
+            getPosition: function(item) {
+                if (!item) {
+                    return null;
+                }
+                var parts = item.split(',');
+                return [parseFloat(parts[0]), parseFloat(parts[1])];
+            }
+        });
+        window.distCluster = distCluster;
+        $('<div id="loadingTip">加载数据，请稍候...</div>').appendTo(document.body);
+        $.get("../static/doc/test.txt", function(csv) {
+
+            $('#loadingTip').remove();
+            var data = csv.split('\n');
+            distCluster.setData(data);
+        });
+    }
+
+    //加载相关组件
+    AMapUI.load(['ui/geo/DistrictCluster', 'lib/$'], function(DistrictCluster, $) {
+      window.DistrictCluster = DistrictCluster;
+        initPage(DistrictCluster, $);
+    });
+    </script>
+
+<script>
+    $('#btn').click(function () {
+        if($('.dialog').hasClass('hidden')){
+            $('.dialog').removeClass('hidden');
+        }else{
+            $('.dialog').addClass('hidden')
+        }
+    })
+</script>
+
+<script>
+    $('#btn2').click(function () {
+        if($('.dialog').hasClass('hidden2')){
+            $('.dialog').removeClass('hidden2');
+        }else{
+            $('.dialog').addClass('hidden2')
+        }
+    })
+</script>
+<script>
+    $('#btn3').click(function () {
+        if($('.dialog').hasClass('hidden')){
+            $('.dialog').removeClass('hidden');
+        }else{
+            $('.dialog').addClass('hidden')
+        }
+    })
+</script>
+<script>
+    $('#btn4').click(function () {
+        if($('.dialog').hasClass('hidden2')){
+            $('.dialog').removeClass('hidden2');
+        }else{
+            $('.dialog').addClass('hidden2')
+        }
+    })
+</script>
+
+  </body>
+</html>
+
+

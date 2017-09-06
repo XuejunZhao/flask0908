@@ -1,0 +1,282 @@
+{% extends "layout.html" %}
+{% block body %}
+ <!--  <h2>Form</h2>
+  <p>The Data you enter here will be saved in a database on our server</p> -->
+  <!-- {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %} -->
+  
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <section class="content row">
+    <div class="left col-md-3">
+        <ul>
+          <li><a href="/graph">基本分析</a></li>
+          <li><a href="/graph">时序划分</a></li>
+          <li class="active"><a href="/rfm">模式筛选</a></li>
+          <li><a href="/form">参数设定</a></li>
+          <li><a href="/map">地理分析</a></li>
+          <li><a href="／map_api?busline=B26">帮助</a></li>
+          <!-- <li><a href="productDM">高级用户分析</a></li> -->
+        </ul>
+      </div> 
+
+    <div id="c" class="right col-md-9 dialog hidden3">
+        <div class="firstLine">
+          <span class="maniTitle">划分数据特点1</span>
+          <span class="next"><a href="/form">下一步>></a></span>
+          <table>
+          <thead class="thead">
+            <th width="20%">第一划分阶段</th>
+            <th width="20%">第二划分阶段</th>
+            <th width="20%">第三划分阶段</th>
+          </thead>
+          
+          <tbody>
+            <tr>
+              <td>08-26 09-29 共计33天</td>
+              <td>09-29 10-06 共计8天</td>
+              <td>10-07 10-23 共计16天</td>
+             </tr>
+             <tr>
+              <td>有效用户29486 整体活跃度68%</td>
+              <td>有效用户8175 整体活跃度19%</td>
+              <td>有效用户5273 整体活跃度12%</td>
+             </tr>
+             <tr>
+              <td>有效参量 司机载客标记</td>
+              <td>有效参量 司机载客标记</td>
+              <td>有效参量 司机载客标记</td>
+             </tr>
+           
+         </tbody>
+         </table>
+          <!-- <span class="question">?</span>
+            <div class="newclass">
+              地理事件模式选择主要是分为群体事件模式划分（目的是通过聚合具有相同性质意义的地理位置，为用户提供热度分析，选址分析以及迁移分析等的基础）以及单例事件序列划分的过程。
+            </div> -->
+          
+        </div>
+ <p><button id= "btn" class="biaoyin3 col-md-2" type="submit">数据确定</button></p>
+    <div class="dialog hidden" >
+
+     <div style="text-align: center; font-size: 1.05em;">RFM增量</div>
+     <div class="inst">
+          <div class="helpHead">
+            1.参量模型引入说明：
+          </div>
+          <div class="helpTest">
+            有效参量仅有上车标示，考虑到已经划分的时间段，引入RFM模型，其中包含R最新盈利情况Recency，F盈利常态Frequency，M盈利总量Monetary。
+          </div> 
+          <div class="helpHead">
+            2.参量模型筛选说明：
+          </div>
+          <div class="helpTest">
+           针对不同时间段，不同类别的数据进行地理分析，会产生不同的结果，有助于理解地理特性分析。
+          </div> 
+
+        </div>
+     <div>
+     </div>
+     <div>通过计算可以得到每个划分范围内的增量模型各大类型</div>
+
+    
+     <div style="text-align: center; font-size: 1.05em;">各时序范围内增量模型分布情况</div>
+     <p><button id= "btn2" class="biaoyin3 col-md-2" type="submit">模型分布</button></p>
+     <div class="dialog hidden2" >
+     <div style="text-align: center; font-size: 1.05em;">第一时序范围增量模型分布
+     <img src="../static/images/algorithm/interval1.png"></div>
+     <div style="text-align: center; font-size: 1.05em;">第二时序范围增量模型分布
+     <img src="../static/images/algorithm/interval2.png"></div>
+     <div style="text-align: center; font-size: 1.05em;">第三时序范围增量模型分布
+     <img src="../static/images/algorithm/interval3.png"></div>
+
+     <select name="" id="choose" class="biaoyin1 col-md-3">
+        <option value="c0">第一时序范围数据集选择</option>
+        <option value="c1">蓝色类型</option>
+        <option value="c2">红色类型</option>
+        <option value="c2">灰色类型</option>
+    </select>
+    <select name="" class="biaoyin1 col-md-3">
+        <option value="c0">第二时序范围数据集选择</option>
+        <option value="c1">蓝色类型</option>
+        <option value="c2">红色类型</option>
+        <option value="c2">灰色类型</option>
+    </select>
+    <select name="" class="biaoyin1 col-md-3">
+        <option value="c0">第三时序范围数据集选择</option>
+        <option value="c1">蓝色类型</option>
+        <option value="c2">红色类型</option>
+        <option value="c2">灰色类型</option>
+    </select>
+    <p><button class="biaoyin3 col-md-2" type="submit"><a href="/form">筛选确定</a></button></p>
+
+
+     </div>
+     
+    </div>
+
+        </div>
+
+<div id="d" class="right col-md-9 dialog hidden3">
+        <div class="firstLine">
+          <span class="maniTitle">划分数据特点2</span>
+          <span class="next"><a href="/form">下一步>></a></span>
+          <table>
+          <thead class="thead">
+            <th width="20%">第一划分阶段</th>
+            <th width="20%">第二划分阶段</th>
+            <th width="20%">第三划分阶段</th>
+          </thead>
+          
+          <tbody>
+            <tr>
+              <td>08-26 09-29 共计33天</td>
+              <td>09-29 10-06 共计8天</td>
+              <td>10-07 10-23 共计16天</td>
+             </tr>
+             <tr>
+              <td>有效用户29486 整体活跃度68%</td>
+              <td>有效用户8175 整体活跃度19%</td>
+              <td>有效用户5273 整体活跃度12%</td>
+             </tr>
+             <tr>
+              <td>有效参量 司机载客标记</td>
+              <td>有效参量 司机载客标记</td>
+              <td>有效参量 司机载客标记</td>
+             </tr>
+           
+         </tbody>
+         </table>
+          <!-- <span class="question">?</span>
+            <div class="newclass">
+              地理事件模式选择主要是分为群体事件模式划分（目的是通过聚合具有相同性质意义的地理位置，为用户提供热度分析，选址分析以及迁移分析等的基础）以及单例事件序列划分的过程。
+            </div> -->
+          
+        </div>
+ <p><button id= "btn3" class="biaoyin3 col-md-2" type="submit">数据确定</button></p>
+    <div class="dialog hidden" >
+
+     <div style="text-align: center; font-size: 1.05em;">RFM增量</div>
+     <div class="inst">
+          <div class="helpHead">
+            1.参量模型引入说明：
+          </div>
+          <div class="helpTest">
+            有效参量仅有上车标示，考虑到已经划分的时间段，引入RFM模型，其中包含R最新盈利情况Recency，F盈利常态Frequency，M盈利总量Monetary。
+          </div> 
+          <div class="helpHead">
+            2.参量模型筛选说明：
+          </div>
+          <div class="helpTest">
+           针对不同时间段，不同类别的数据进行地理分析，会产生不同的结果，有助于理解地理特性分析。
+          </div> 
+
+        </div>
+     <div>
+     </div>
+     <div>通过计算可以得到每个划分范围内的增量模型各大类型</div>
+
+    
+     <div style="text-align: center; font-size: 1.05em;">各时序范围内增量模型分布情况</div>
+     <p><button id= "btn4" class="biaoyin3 col-md-2" type="submit">模型分布</button></p>
+     <div class="dialog hidden2" >
+     <div style="text-align: center; font-size: 1.05em;">第一时序范围增量模型分布
+     <img src="../static/images/algorithm/interval1.png"></div>
+     <div style="text-align: center; font-size: 1.05em;">第二时序范围增量模型分布
+     <img src="../static/images/algorithm/interval2.png"></div>
+     <div style="text-align: center; font-size: 1.05em;">第三时序范围增量模型分布
+     <img src="../static/images/algorithm/interval3.png"></div>
+
+     <select name="" id="choose" class="biaoyin1 col-md-3">
+        <option value="c0">第一时序范围数据集选择</option>
+        <option value="c1">蓝色类型</option>
+        <option value="c2">红色类型</option>
+        <option value="c2">灰色类型</option>
+    </select>
+    <select name="" class="biaoyin1 col-md-3">
+        <option value="c0">第二时序范围数据集选择</option>
+        <option value="c1">蓝色类型</option>
+        <option value="c2">红色类型</option>
+        <option value="c2">灰色类型</option>
+    </select>
+    <select name="" class="biaoyin1 col-md-3">
+        <option value="c0">第三时序范围数据集选择</option>
+        <option value="c1">蓝色类型</option>
+        <option value="c2">红色类型</option>
+        <option value="c2">灰色类型</option>
+    </select>
+    <p><button class="biaoyin3 col-md-2" type="submit"><a href="/form">筛选确定</a></button></p>
+
+
+     </div>
+     
+    </div>
+
+        </div>
+
+      </div> 
+      </section>
+     
+
+  
+{% endblock %}
+
+{% block javascript %}
+<script>
+    $('#btn').click(function () {
+        if($('.dialog').hasClass('hidden')){
+            $('.dialog').removeClass('hidden');
+        }else{
+            $('.dialog').addClass('hidden')
+        }
+    })
+</script>
+
+<script>
+    $('#btn2').click(function () {
+        if($('.dialog').hasClass('hidden2')){
+            $('.dialog').removeClass('hidden2');
+        }else{
+            $('.dialog').addClass('hidden2')
+        }
+    })
+</script>
+<script>
+    $('#btn3').click(function () {
+        if($('.dialog').hasClass('hidden')){
+            $('.dialog').removeClass('hidden');
+        }else{
+            $('.dialog').addClass('hidden')
+        }
+    })
+</script>
+<script>
+    $('#btn4').click(function () {
+        if($('.dialog').hasClass('hidden2')){
+            $('.dialog').removeClass('hidden2');
+        }else{
+            $('.dialog').addClass('hidden2')
+        }
+    })
+</script>
+<script>
+  function getQueryString(name) {
+
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var r = window.location.search.substr(1).match(reg);
+    if(r != null) return unescape(r[2]);
+    return null;
+    
+  }
+  var value_choose = decodeURI(getQueryString("value_choose"));
+  console.log(value_choose)
+  if (value_choose == 'c1'){
+    $("#c").removeClass('hidden3');
+    $('#d').addClass('hidden3');
+  }else{
+        $("#d").removeClass('hidden3');
+        $('#c').addClass('hidden3');}
+</script>
+{% endblock %}
